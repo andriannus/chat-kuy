@@ -90,6 +90,7 @@ class Site extends CI_Controller {
 
 		$data['username'] = $username;
 		$data['message'] = $message;
+		$data['timestamp'] = date('Y-m-d H:i:s');
 
 		$result = $this->pusher->trigger('chat-kuy', 'chat', $data);
 

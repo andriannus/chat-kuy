@@ -29,7 +29,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 										<div class="level-right">
 											<div class="level-item">
 												<p>
-													<small>{{ dateNow }}</small>
+													<small>{{ message.timestamp | current }}</small>
 												</p>
 											</div>
 										</div>
@@ -95,8 +95,7 @@ const chat = new Vue({
 		debounce: '',
 		isTyping: 'hidden',
 		currentUser: '<?= $this->session->username ?>',
-		loading: false,
-		dateNow: moment().format('LLL')
+		loading: false
 	}),
 
 	mounted() {
@@ -162,6 +161,10 @@ const chat = new Vue({
 			let chatBox = this.$el.querySelector('.chat-box')
 			chatBox.scrollTop = chatBox.scrollHeight
 		}
+	},
+
+	filters: {
+		current: (timestamp) => moment(timestamp).format('MMMM Do YYYY, h:mm:ss a')
 	}
 })
 </script>
