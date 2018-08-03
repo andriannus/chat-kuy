@@ -32,28 +32,104 @@ class Site extends CI_Controller {
 			'xx',
 			$this->options
 		);
-
-		$data['message'] = 'Hello World';
-		$this->pusher->trigger('my-channel', 'my-event', $data);
 	}
 
 	public function register()
 	{
+		if ($this->session->userdata('login') == true) {
+			redirect('site/chat');
+
+		} else {
+			$data = [
+				'title' => 'Daftar',
+				'page' => 'sites/register'
+			];
+
+			$this->load->view($this->layout, $data);
+		}
+	}
+
+	public function registerProcess()
+	{
+		$username = $this->input->post('username');
+
 		$data = [
-			'title' => 'Daftar',
-			'page' => 'sites/register'
+			'username' => $username,
+			'login' => true
 		];
 
-		$this->load->view($this->layout, $data);
+		$this->session->set_userdata($data);
+		redirect('site/chat');
+	}
+
+	public function logout()
+	{
+		$this->session->sess_destroy();
+		redirect('site/register');
 	}
 
 	public function chat()
 	{
-		$data = [
-			'title' => 'Ruang Chat',
-			'page' => 'sites/chat'
-		];
+		if ($this->session->userdata('login') == false) {
+			redirect('site/register');
+		
+		} else {
+			$data = [
+				'title' => 'Ruang Chat',
+				'page' => 'sites/chat'
+			];
 
-		$this->load->view($this->layout, $data);
+			$this->load->view($this->layout, $data);
+		}
+	}
+
+	public function sendChat()
+	{
+		$username = $this->session->userdata('username');
+		$message = $this->input->post('message');
+
+		$data['username'] = $username;
+		$data['message'] = $message;
+
+		$result = $this->pusher->trigger('chat-kuy', 'chat', $data);
+
+		if ($result) {
+			return $this->output
+									->set_status_header(201)
+									->set_output(json_encode([
+											'success' => true,
+											'message' => 'Message created'
+										]));
+
+		} else {
+			return $this->output
+									->set_status_header(500)
+									->set_output(json_encode([
+											'success' => false,
+											'message' => 'Message failed to create'
+										]));
+		}
+	}
+
+	public function someoneIsTyping()
+	{
+		$data['username'] = $this->session->userdata('username');
+
+		$result = $this->pusher->trigger('chat-kuy', 'typing', $data);
+
+		if ($result) {
+			return $this->output
+									->set_status_header(200)
+									->set_output(json_encode([
+											'success' => true
+										]));
+
+		} else {
+			return $this->output
+									->set_status_header(500)
+									->set_output(json_encode([
+											'success' => false
+										]));
+		}
 	}
 }

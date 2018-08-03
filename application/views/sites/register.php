@@ -12,11 +12,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<p class="subtitle">Digunakan sebagai tanda pengenal</p>
 					</div>
 					<hr>
-					<form>
+					<?= form_open('site/registerProcess') ?>
 						<div class="field">
 							<label class="label">Nama</label>
 							<div class="control has-icons-left">
-								<input class="input" type="text" placeholder="Nama atau Inisial" v-model="name"></input>
+								<input class="input" type="text" placeholder="Nama atau Inisial" name="username"></input>
 								<span class="icon is-small is-left">
 									<i class="fas fa-user"></i>
 								</span>
@@ -31,7 +31,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								</span>
 							</button>
 						</div>
-					</form>
+					<?= form_close() ?>
 				</div>
 			</div>
 		</div>
