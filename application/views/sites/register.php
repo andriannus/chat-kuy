@@ -16,7 +16,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<div class="field">
 							<label class="label">Nama</label>
 							<div class="control has-icons-left">
-								<input class="input" type="text" placeholder="Nama atau Inisial" name="username" required pattern=".{3,}" title="At least 3 characters">
+								<input
+									class="input"
+									type="text"
+									placeholder="Nama atau Inisial"
+									name="username"
+									required
+									pattern="[A-Za-z]{3,}"
+									title="Alphabet and at least 3 characters">
 								<span class="icon is-small is-left">
 									<i class="fas fa-user"></i>
 								</span>
