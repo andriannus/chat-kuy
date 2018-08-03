@@ -9,15 +9,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	<title><?= $title ?></title>
 
-	<link rel="icon" type="image/png" href="<?= base_url('assets/images/fav.png'); ?>"/>
+	<link rel="icon" type="image/png" href="<?= base_url('asset/images/fav.png'); ?>"/>
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 
 	<script src="https://unpkg.com/vue@2.5.16/dist/vue.min.js"></script>
+	<script src="https://underscorejs.org/underscore-min.js"></script>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script src="https://momentjs.com/downloads/moment.min.js"></script>
-	
+	<script src="https://js.pusher.com/4.2/pusher.min.js"></script>
 	<style>
 		html {
 			overflow: auto;
@@ -26,6 +27,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		.chat-box {
 			height: 300px;
 			overflow: auto;
+		}
+
+		.mb-5 {
+			margin-bottom: 5 !important;
 		}
 	</style>
 </head>
